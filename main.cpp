@@ -4,12 +4,6 @@
 #include <math.h>
 #include "Controller.h"
 
-// if (event.type == sf::Event::MouseButtonPressed)
-//     if (event.mouseButton.button == sf::Mouse::Left) {
-//        floor((event.mouseButton.x-offset)/sizeSquare); 
-//        floor((event.mouseButton.y-offset)/sizeSquare);
-// }
-
 std::vector<sf::Vertex> drawBoardOutline(int offset, int numberSquare, int sizeSquare) {
     std::vector<sf::Vertex> lines;
     

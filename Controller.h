@@ -1,13 +1,19 @@
-#include "Board.h"
+#ifndef CONTROLLER
+#define CONTROLLER
+
+#include "Model.h"
+#include "View.h"
 
 class Controller {
     private:
-        Board board;
-        
+        Model* model;
+        View* view;
+
     public:
-        Controller();
+        Controller(Model* _model, View* _view);
         ~Controller();
 
-        void init();
-        void LaunchGame();
+        void launch();
 };
+
+#endif
