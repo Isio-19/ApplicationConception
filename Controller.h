@@ -10,9 +10,16 @@ class Controller {
         View* view;
 
     public:
-        Controller(Model* _model, View* _view);
+        Controller();
         ~Controller();
-
+        
+        void addModel(Model* _model);
+        void addView(View* _view);
+        
+        int** getGrid();
+        bool validClick(int x, int y);
+        bool hasFirstMove();
+        void switchTiles(int firstX, int firstY, int secondX, int secondY);
         void launch();
 };
 

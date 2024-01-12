@@ -6,11 +6,15 @@
 int main(int argc, char const *argv[]) {
     Model _m;
     View _v;
+    Controller _c;
 
-    Controller _c(&_m, &_v);
+    _m.addController(&_c);
+    _v.addController(&_c);
+
+    _c.addModel(&_m);
+    _c.addView(&_v);
+
     _c.launch();
-
-    std::cout << "Fuck out" << std::endl;
 
     return 0;
 }
