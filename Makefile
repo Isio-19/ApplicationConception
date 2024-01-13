@@ -5,7 +5,7 @@ all:
 
 test: 
 	g++ -c main_test.cpp -o main.o  
-	g++ main.o Model.cpp View.cpp Controller.cpp -o main -lsfml-graphics -lsfml-window -lsfml-system 
+	g++ main.o MVC/Model.cpp MVC/View.cpp MVC/Controller.cpp -o main -lsfml-graphics -lsfml-window -lsfml-system 
 	./main
 
 clean:

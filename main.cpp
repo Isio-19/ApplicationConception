@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
-#include "Controller.h"
+#include "MVC/Controller.h"
 
 std::vector<sf::Vertex> drawBoardOutline(int offset, int numberSquare, int sizeSquare) {
     std::vector<sf::Vertex> lines;
