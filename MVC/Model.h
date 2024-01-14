@@ -19,9 +19,6 @@ class Model {
         int firstMoveX;
         int firstMoveY;
 
-        int secondMoveX;
-        int secondMoveY;
-
     public:
         Model();
         ~Model();
@@ -31,16 +28,12 @@ class Model {
         int** getBoard();
         bool getCurrentPlayer();
         bool hasFirstMove();
-        bool hasSecondMove();
         int getFirstMoveX();
         int getFirstMoveY();
-        int getSecondMoveX();
-        int getSecondMoveY();
 
         void changeBoard(int** nextBoard);
         void switchPlayer();
         void setFirstMove(int x, int y);
-        void setSecondMove(int x, int y);
         void resetMoves();
 };
 
