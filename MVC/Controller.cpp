@@ -47,14 +47,24 @@ bool Controller::validClick(int x, int y) {
     int firstMoveY = model->getFirstMoveY();
 
     if ((firstMoveX == x) != (firstMoveY == y)) {
+        // change the board        
         int** tempGrid = switchTiles(firstMoveX, firstMoveY, x, y);
         model->changeBoard(tempGrid);
+        
+        // change the variables
         model->resetMoves();
+
+        // check if the board has a winner
+        this->checkBoard();
+
+        // switch player after making sure that the win condition hasn't been achieved
         model->switchPlayer();
     }
 
     return false;
 }
+
+void Controller::cancelMoves() { model->resetMoves(); }
 
 int** Controller::switchTiles(int firstX, int firstY, int secondX, int secondY) {
     int** grid = model->getBoard();
@@ -104,3 +114,52 @@ int Controller::getFirstMoveX() { return model->getFirstMoveX(); }
 int Controller::getFirstMoveY() { return model->getFirstMoveY(); }
 
 void Controller::launch() { view->showWindow(); }
+
+bool Controller::checkBoard() {
+    int enemy = 2, current = 1;
+
+    if (model->getCurrentPlayer()) {
+        enemy = 1;
+        current = 2;
+    }
+
+    if (checkWinningPlayer(enemy)) {
+        std::cout << "opposite won!" << std::endl;
+        return true;
+    }
+
+    if (checkWinningPlayer(current)) {
+        std::cout << "current won!" << std::endl;
+        return true;
+    }
+
+    return false;
+}
+
+bool Controller::checkWinningPlayer(int player) {
+    // if currentPlayer = true, check cross 1
+    // else check circle 2
+    int squareToCheck = player;
+    int** grid = model->getBoard();
+
+    //check lines 
+    for (int i=0; i<5; i++) {
+        if (squareToCheck == grid[i][0] && grid[i][0] == grid[i][1] && grid[i][1] == grid[i][2] && grid[i][2] == grid[i][3] && grid[i][3] == grid[i][4])
+            return true;
+    }
+
+    //check columns
+    for (int i=0; i<5; i++) {
+        if (squareToCheck == grid[0][i] && grid[0][i] == grid[1][i] && grid[1][i] == grid[2][i] && grid[2][i] == grid[3][i] && grid[3][i] == grid[4][i])
+            return true;
+    }
+
+    //check diagonals
+    if (squareToCheck == grid[0][0] && grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2] && grid[2][2] == grid[3][3] && grid[3][3] == grid[4][4])
+        return true;
+
+    if (squareToCheck == grid[4][0] && grid[4][0] == grid[3][1] && grid[3][1] == grid[2][2] && grid[2][2] == grid[1][3] && grid[1][3] == grid[0][4])
+        return true;
+
+    return false;
+}

@@ -114,7 +114,8 @@ void View::showWindow() {
                 }
 
                 // if right click, cancel any moves
-                // TO DO: cancel moves on right click  
+                if (event.mouseButton.button == sf::Mouse::Right)
+                    controller->cancelMoves();
 
                 // if echap, back to main menu
                 // TO DO: second view, main menu

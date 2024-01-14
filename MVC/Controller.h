@@ -18,6 +18,7 @@ class Controller {
         
         int** getGrid();
         bool validClick(int x, int y);
+        void cancelMoves();
 
         bool hasFirstMove();
         int getFirstMoveX();
@@ -26,6 +27,10 @@ class Controller {
         int** switchTiles(int firstX, int firstY, int secondX, int secondY);
 
         void launch();
+
+        bool checkBoard();
+        bool checkWinningPlayer(int player);
+
 };
 
 #endif
