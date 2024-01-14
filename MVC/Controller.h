@@ -18,8 +18,13 @@ class Controller {
         
         int** getGrid();
         bool validClick(int x, int y);
+
         bool hasFirstMove();
-        void switchTiles(int firstX, int firstY, int secondX, int secondY);
+        int getFirstMoveX();
+        int getFirstMoveY();
+
+        int** switchTiles(int firstX, int firstY, int secondX, int secondY);
+
         void launch();
 };
 

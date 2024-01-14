@@ -17,8 +17,6 @@ Model::Model() {
 
     firstMoveX = -1;
     firstMoveY = -1;
-    secondMoveX = -1;
-    secondMoveY = -1;
 }
 
 Model::~Model() {
@@ -38,15 +36,9 @@ bool Model::getCurrentPlayer() { return currentPlayer; }
 
 bool Model::hasFirstMove() { return firstMoveX != -1; } 
 
-bool Model::hasSecondMove() { return secondMoveX != -1; }
-
 int Model::getFirstMoveX() { return firstMoveX; }
 
 int Model::getFirstMoveY() { return firstMoveY; }
-
-int Model::getSecondMoveX() { return secondMoveX; }
-
-int Model::getSecondMoveY() { return secondMoveY; }
 
 
 void Model::changeBoard(int** nextBoard) {
@@ -62,14 +54,7 @@ void Model::setFirstMove(int x, int y) {
     firstMoveY = y;
 }
 
-void Model::setSecondMove(int x, int y) {
-    secondMoveX = x;
-    secondMoveY = y;
-}
-
 void Model::resetMoves() {
     firstMoveX = -1;
     firstMoveY = -1;
-    secondMoveX = -1;
-    secondMoveY = -1;
 }

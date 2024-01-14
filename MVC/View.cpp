@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+int boardOffset = 50;
+
 View::View() {
 
 }
@@ -53,15 +55,26 @@ void drawBoard(int** board, sf::RenderWindow* window, int offset) {
                 sprite.setTexture(crossTexture);
             }
 
-            sprite.setPosition(sf::Vector2f(offset + i*100, offset + j*100));
+            sprite.setPosition(sf::Vector2f(offset + j*100, offset + i*100));
             window->draw(sprite);
         }
     }
 
 }
 
+void drawSquare(int x, int y, int offset, int sizeSquare, sf::Color color, sf::RenderWindow* window) {
+    std::vector<sf::Vertex> squareToDraw;
+    
+    squareToDraw.push_back(sf::Vertex(sf::Vector2f(sizeSquare*x + offset, sizeSquare*y+1 + offset), color));
+    squareToDraw.push_back(sf::Vertex(sf::Vector2f(sizeSquare*(x+1) + offset, sizeSquare*y+1 + offset), color));
+    squareToDraw.push_back(sf::Vertex(sf::Vector2f(sizeSquare*(x+1) + offset, sizeSquare*(y+1) + offset), color));
+    squareToDraw.push_back(sf::Vertex(sf::Vector2f(sizeSquare*x + offset+1, sizeSquare*(y+1) + offset), color));
+    squareToDraw.push_back(sf::Vertex(sf::Vector2f(sizeSquare*x + offset+1, sizeSquare*y + offset), color));
+
+    window->draw(&squareToDraw[0], squareToDraw.size(), sf::LineStrip);
+}
+
 void View::showWindow() {
-    int boardOffset = 50;
     sf::RenderWindow window(sf::VideoMode(600, 600), "Application de conception", sf::Style::Titlebar | sf::Style::Close);
 
     while (window.isOpen()) {
@@ -76,11 +89,22 @@ void View::showWindow() {
             int** grid = controller->getGrid();
 
             // base what is shown on the grid
-            drawBoardOutline(boardOffset, 100, &window);
+            // drawBoardOutline(boardOffset, 100, &window);
             drawBoard(grid, &window, boardOffset);
 
             if (controller->hasFirstMove()) {
                 // highlight the squares that the user can click forthe second move
+                int x = controller->getFirstMoveX();
+                int y = controller->getFirstMoveY();
+
+                // highlight squares in which we can do the second move
+                drawSquare(0, y, boardOffset, 100, sf::Color::Red, &window);
+                drawSquare(4, y, boardOffset, 100, sf::Color::Red, &window);
+                drawSquare(x, 0, boardOffset, 100, sf::Color::Red, &window);
+                drawSquare(x, 4, boardOffset, 100, sf::Color::Red, &window);
+
+                // highlight the first move square in cyan
+                drawSquare(x, y, boardOffset, 100, sf::Color::Cyan, &window);
             }
 
             // check for user input, if so send it to the controller to be treated
@@ -90,8 +114,11 @@ void View::showWindow() {
                 }
 
                 // if right click, cancel any moves
+                // TO DO: cancel moves on right click  
 
                 // if echap, back to main menu
+                // TO DO: second view, main menu
+                // TO DO: return to main menu on echap
             }
         }
 

@@ -47,26 +47,28 @@ bool Controller::validClick(int x, int y) {
     int firstMoveY = model->getFirstMoveY();
 
     if ((firstMoveX == x) != (firstMoveY == y)) {
-        model->setSecondMove(x, y);
-        switchTiles(firstMoveX, firstMoveY, x, y);
+        int** tempGrid = switchTiles(firstMoveX, firstMoveY, x, y);
+        model->changeBoard(tempGrid);
+        model->resetMoves();
+        model->switchPlayer();
     }
 
     return false;
 }
 
-void Controller::switchTiles(int firstX, int firstY, int secondX, int secondY) {
+int** Controller::switchTiles(int firstX, int firstY, int secondX, int secondY) {
     int** grid = model->getBoard();
 
+    int temp = (int) model->getCurrentPlayer() +1; 
     // if both moves are aligned on the same line
     if (firstY == secondY) {
-        int temp = grid[firstY][firstX]; 
         if (firstX < secondX) {
             // shift to the left
             for (int i=firstX; i<secondX; i++) 
                 grid[firstY][i] = grid[firstY][i+1];
             grid[firstY][secondX] = temp;
 
-            return;
+            return grid;
         }
 
         // shift to the right
@@ -74,18 +76,17 @@ void Controller::switchTiles(int firstX, int firstY, int secondX, int secondY) {
             grid[firstY][i] = grid[firstY][i-1];
         grid[firstY][secondX] = temp;
 
-        return;
+        return grid;
     }
 
     // both moves are aligned on the same column
-    int temp = grid[firstY][firstX]; 
     if (firstY < secondY) {
         // shift up
         for (int i=firstY; i<secondY; i++) 
             grid[i][firstX] = grid[i+1][firstX];
         grid[secondY][firstX] = temp;
 
-        return;
+        return grid;
     }
 
     // shift down
@@ -93,9 +94,13 @@ void Controller::switchTiles(int firstX, int firstY, int secondX, int secondY) {
         grid[firstY][i] = grid[firstY][i-1];
     grid[firstY][secondX] = temp;
 
-    return;
+    return grid;
 }
 
 bool Controller::hasFirstMove() { return model->hasFirstMove(); }
+
+int Controller::getFirstMoveX() { return model->getFirstMoveX(); }
+
+int Controller::getFirstMoveY() { return model->getFirstMoveY(); }
 
 void Controller::launch() { view->showWindow(); }
