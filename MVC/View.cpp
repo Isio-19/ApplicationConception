@@ -92,6 +92,27 @@ void View::showWindow() {
             drawBoardOutline();
             drawBoard(grid);
 
+            if (controller->getWinningPlayer() != 0) {
+                // if a winning player is defined, show it
+                sf::Font font;
+                font.loadFromFile("various/arial.ttf");
+                sf::Text text;
+                text.setFont(font);
+                text.setCharacterSize(50);
+                text.setFillColor(sf::Color::Black);
+                text.setStyle(sf::Text::Bold);
+                text.setPosition(sf::Vector2f(
+                    offset,
+                    sizeSquare*5 + 2*offset 
+                ));
+
+                text.setString("Circle won!");
+                if (controller->getWinningPlayer() == 2)
+                    text.setString("Cross won!");
+
+                window->draw(text);
+            }
+
             if (controller->hasFirstMove()) {
                 // highlight the squares that the user can click forthe second move
                 int x = controller->getFirstMoveX();
@@ -115,13 +136,11 @@ void View::showWindow() {
                 // if right click, cancel any moves
                 if (event.mouseButton.button == sf::Mouse::Right)
                     controller->cancelMoves();
-
-                // if echap or click on the back button, back to main menu
-                
-                // TO DO: second view, main menu
-                // TO DO: return to main menu on echap
             }
 
+            // if echap or click on the back button, back to main menu
+            // TO DO: second view, main menu
+            // TO DO: return to main menu on echap
             // if (event.type == sf::Event::KeyPressed) {
             //     if (event.key.code == sf::Keyboard::Escape) {
             //         std::cout << "the escape key was pressed" << std::endl; 

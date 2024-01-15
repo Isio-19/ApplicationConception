@@ -14,6 +14,7 @@ Model::Model() {
     }
 
     currentPlayer = true;
+    winningPlayer = 0;
 
     firstMoveX = -1;
     firstMoveY = -1;
@@ -33,6 +34,7 @@ int** Model::getBoard() { return board; }
 
 bool Model::getCurrentPlayer() { return currentPlayer; }
 
+int Model::getWinningPlayer() { return winningPlayer; }
 
 bool Model::hasFirstMove() { return firstMoveX != -1; } 
 
@@ -48,6 +50,8 @@ void Model::changeBoard(int** nextBoard) {
 }
 
 void Model::switchPlayer() { currentPlayer = !currentPlayer; }
+
+void Model::setWinningPlayer(int winner) { winningPlayer = winner; }
 
 void Model::setFirstMove(int x, int y) {
     firstMoveX = x;

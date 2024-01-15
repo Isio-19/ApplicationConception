@@ -3,7 +3,7 @@
 #include <iostream>
 
 Controller::Controller() {
-    window = new sf::RenderWindow(sf::VideoMode(600, 600), "Application de conception", sf::Style::Titlebar | sf::Style::Close);
+    window = new sf::RenderWindow(sf::VideoMode(600, 750), "Application de conception", sf::Style::Titlebar | sf::Style::Close);
 }
 
 Controller::~Controller() {
@@ -57,7 +57,9 @@ bool Controller::validClick(int x, int y) {
         model->resetMoves();
 
         // check if the board has a winner
-        this->checkBoard();
+        int winner = checkBoard();
+        if (winner != 0)
+            model->setWinningPlayer(winner);
 
         // switch player after making sure that the win condition hasn't been achieved
         model->switchPlayer();
@@ -117,7 +119,9 @@ int Controller::getFirstMoveY() { return model->getFirstMoveY(); }
 
 void Controller::launch() { view->showWindow(); }
 
-bool Controller::checkBoard() {
+int Controller::getWinningPlayer() { return model->getWinningPlayer(); }
+
+int Controller::checkBoard() {
     int enemy = 2, current = 1;
 
     if (model->getCurrentPlayer()) {
@@ -125,17 +129,13 @@ bool Controller::checkBoard() {
         current = 2;
     }
 
-    if (checkWinningPlayer(enemy)) {
-        std::cout << "opposite won!" << std::endl;
-        return true;
-    }
+    if (checkWinningPlayer(enemy)) 
+        return enemy;
 
-    if (checkWinningPlayer(current)) {
-        std::cout << "current won!" << std::endl;
-        return true;
-    }
+    if (checkWinningPlayer(current)) 
+        return current;
 
-    return false;
+    return 0;
 }
 
 bool Controller::checkWinningPlayer(int player) {

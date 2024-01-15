@@ -32,7 +32,9 @@ class Controller {
 
         void launch();
 
-        bool checkBoard();
+        int getWinningPlayer();
+
+        int checkBoard();
         bool checkWinningPlayer(int player);
 
 };
