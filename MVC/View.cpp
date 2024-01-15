@@ -109,19 +109,24 @@ void View::showWindow() {
 
             // check for user input, if so send it to the controller to be treated
             if (event.type == sf::Event::MouseButtonPressed) {
-                if (event.mouseButton.button == sf::Mouse::Left) {
+                if (event.mouseButton.button == sf::Mouse::Left)
                     controller->validClick(event.mouseButton.x, event.mouseButton.y);
-                }
 
                 // if right click, cancel any moves
                 if (event.mouseButton.button == sf::Mouse::Right)
                     controller->cancelMoves();
 
-                // if echap, back to main menu
+                // if echap or click on the back button, back to main menu
+                
                 // TO DO: second view, main menu
                 // TO DO: return to main menu on echap
             }
-        }
+
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key == sf::Keyboard::Escape) {
+                    std::cout << "the escape key was pressed" << std::endl; 
+                }
+            }
 
         window.display();
     }
