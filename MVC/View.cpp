@@ -1,8 +1,10 @@
 #include "View.h"
 #include <iostream>
 
-int boardOffset = 50;
-
+/**
+ * @brief Construct a new View:: View object
+ * 
+ */
 View::View() {
     controller = nullptr;
     window = nullptr;
@@ -10,10 +12,24 @@ View::View() {
     sizeSquare = 100;
 }
 
+/**
+ * @brief Link a Controller to the View
+ * 
+ * @param _controller 
+ */
 void View::addController(Controller* _controller) { controller = _controller; }
 
+/**
+ * @brief Link the window of the Controller to the View
+ * 
+ * @param _window 
+ */
 void View::addWindow(sf::RenderWindow* _window) { window = _window; }
 
+/**
+ * @brief Draws an outline around the current board
+ * 
+ */
 void View::drawBoardOutline() {
     std::vector<sf::Vertex> boardOutline;
     
@@ -25,6 +41,12 @@ void View::drawBoardOutline() {
 
     window->draw(&boardOutline[0], boardOutline.size(), sf::LineStrip);
 }
+
+/**
+ * @brief Draws the board given in argument
+ * 
+ * @param board 
+ */
 void View::drawBoard(int** board) {
     sf::Texture emptyTexture;
     sf::Texture crossTexture;
@@ -62,6 +84,13 @@ void View::drawBoard(int** board) {
 
 }
 
+/**
+ * @brief Draw a square of the given color at the given coordinates
+ * 
+ * @param x 
+ * @param y 
+ * @param color 
+ */
 void View::drawSquare(int x, int y, sf::Color color) {
     std::vector<sf::Vertex> squareToDraw;
     
@@ -74,6 +103,10 @@ void View::drawSquare(int x, int y, sf::Color color) {
     window->draw(&squareToDraw[0], squareToDraw.size(), sf::LineStrip);
 }
 
+/**
+ * @brief Open a window with which the user can interact with
+ * 
+ */
 void View::showWindow() {
     while (window->isOpen()) {
         sf::Event event;
