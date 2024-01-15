@@ -122,12 +122,13 @@ void View::showWindow() {
                 // TO DO: return to main menu on echap
             }
 
-            if (event.type == sf::Event::KeyPressed) {
-                if (event.key == sf::Keyboard::Escape) {
-                    std::cout << "the escape key was pressed" << std::endl; 
-                }
-            }
+            // if (event.type == sf::Event::KeyPressed) {
+            //     if (event.key == sf::Keyboard::Escape) {
+            //         std::cout << "the escape key was pressed" << std::endl; 
+            //     }
+            // }
 
         window.display();
+        }
     }
 }

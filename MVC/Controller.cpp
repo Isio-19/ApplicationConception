@@ -100,9 +100,9 @@ int** Controller::switchTiles(int firstX, int firstY, int secondX, int secondY) 
     }
 
     // shift down
-    for (int i=firstX; i>secondX; i--) 
-        grid[firstY][i] = grid[firstY][i-1];
-    grid[firstY][secondX] = temp;
+    for (int i=firstY; i>secondY; i--)
+        grid[i][firstX] = grid[i-1][firstX];
+    grid[secondY][firstX] = temp;
 
     return grid;
 }
