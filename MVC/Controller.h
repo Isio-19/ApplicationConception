@@ -14,7 +14,6 @@ class Controller {
 
     public:
         Controller();
-        ~Controller();
         
         void addModel(Model* _model);
         void addView(View* _view);

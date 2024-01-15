@@ -17,7 +17,6 @@ private:
 
 public:
     View();
-    ~View();
 
     void addController(Controller* _controller);
     void addWindow(sf::RenderWindow* window);

@@ -6,10 +6,6 @@ Controller::Controller() {
     window = new sf::RenderWindow(sf::VideoMode(600, 750), "Application de conception", sf::Style::Titlebar | sf::Style::Close);
 }
 
-Controller::~Controller() {
-
-}
-
 void Controller::addModel(Model* _model) { model = _model; }
 
 void Controller::addView(View* _view) { view = _view; }

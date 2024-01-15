@@ -10,8 +10,6 @@ View::View() {
     sizeSquare = 100;
 }
 
-View::~View() {  }
-    
 void View::addController(Controller* _controller) { controller = _controller; }
 
 void View::addWindow(sf::RenderWindow* _window) { window = _window; }
