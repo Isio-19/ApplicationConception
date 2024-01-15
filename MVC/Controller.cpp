@@ -3,7 +3,7 @@
 #include <iostream>
 
 Controller::Controller() {
-
+    window = new sf::RenderWindow(sf::VideoMode(600, 600), "Application de conception", sf::Style::Titlebar | sf::Style::Close);
 }
 
 Controller::~Controller() {
@@ -13,6 +13,8 @@ Controller::~Controller() {
 void Controller::addModel(Model* _model) { model = _model; }
 
 void Controller::addView(View* _view) { view = _view; }
+
+sf::RenderWindow* Controller::getWindow() { return window; }
 
 int** Controller::getGrid() { return model->getBoard(); }
 

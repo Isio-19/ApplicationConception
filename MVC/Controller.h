@@ -3,11 +3,14 @@
 
 #include "Model.h"
 #include "View.h"
+#include <SFML/Graphics.hpp>
 
 class Controller {
     private:
         Model* model;
         View* view;
+
+        sf::RenderWindow* window;
 
     public:
         Controller();
@@ -16,6 +19,7 @@ class Controller {
         void addModel(Model* _model);
         void addView(View* _view);
         
+        sf::RenderWindow* getWindow();
         int** getGrid();
         bool validClick(int x, int y);
         void cancelMoves();

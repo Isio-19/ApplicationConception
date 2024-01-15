@@ -1,20 +1,22 @@
 #include "View.h"
-#include <SFML/Graphics.hpp>
 #include <iostream>
 
 int boardOffset = 50;
 
 View::View() {
-
+    controller = nullptr;
+    window = nullptr;
+    offset = 50;
+    sizeSquare = 100;
 }
 
-View::~View() {
-    
-}
+View::~View() {  }
     
 void View::addController(Controller* _controller) { controller = _controller; }
 
-void drawBoardOutline(int offset, int sizeSquare, sf::RenderWindow* window) {
+void View::addWindow(sf::RenderWindow* _window) { window = _window; }
+
+void View::drawBoardOutline() {
     std::vector<sf::Vertex> boardOutline;
     
     boardOutline.push_back(sf::Vertex(sf::Vector2f(offset, offset-1), sf::Color::Black));
@@ -25,7 +27,7 @@ void drawBoardOutline(int offset, int sizeSquare, sf::RenderWindow* window) {
 
     window->draw(&boardOutline[0], boardOutline.size(), sf::LineStrip);
 }
-void drawBoard(int** board, sf::RenderWindow* window, int offset) {
+void View::drawBoard(int** board) {
     sf::Texture emptyTexture;
     sf::Texture crossTexture;
     sf::Texture circleTexture;
@@ -62,7 +64,7 @@ void drawBoard(int** board, sf::RenderWindow* window, int offset) {
 
 }
 
-void drawSquare(int x, int y, int offset, int sizeSquare, sf::Color color, sf::RenderWindow* window) {
+void View::drawSquare(int x, int y, sf::Color color) {
     std::vector<sf::Vertex> squareToDraw;
     
     squareToDraw.push_back(sf::Vertex(sf::Vector2f(sizeSquare*x + offset, sizeSquare*y+1 + offset), color));
@@ -75,22 +77,20 @@ void drawSquare(int x, int y, int offset, int sizeSquare, sf::Color color, sf::R
 }
 
 void View::showWindow() {
-    sf::RenderWindow window(sf::VideoMode(600, 600), "Application de conception", sf::Style::Titlebar | sf::Style::Close);
-
-    while (window.isOpen()) {
+    while (window->isOpen()) {
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (window->pollEvent(event)) {
             if (event.type == sf::Event::Closed)
-                window.close();
+                window->close();
 
-            window.clear(sf::Color(224, 224, 215));
+            window->clear(sf::Color(224, 224, 215));
             
             // request the grid to the controller, which will get it from the model
             int** grid = controller->getGrid();
 
             // base what is shown on the grid
-            // drawBoardOutline(boardOffset, 100, &window);
-            drawBoard(grid, &window, boardOffset);
+            drawBoardOutline();
+            drawBoard(grid);
 
             if (controller->hasFirstMove()) {
                 // highlight the squares that the user can click forthe second move
@@ -98,13 +98,13 @@ void View::showWindow() {
                 int y = controller->getFirstMoveY();
 
                 // highlight squares in which we can do the second move
-                drawSquare(0, y, boardOffset, 100, sf::Color::Red, &window);
-                drawSquare(4, y, boardOffset, 100, sf::Color::Red, &window);
-                drawSquare(x, 0, boardOffset, 100, sf::Color::Red, &window);
-                drawSquare(x, 4, boardOffset, 100, sf::Color::Red, &window);
+                drawSquare(0, y, sf::Color::Red);
+                drawSquare(4, y, sf::Color::Red);
+                drawSquare(x, 0, sf::Color::Red);
+                drawSquare(x, 4, sf::Color::Red);
 
                 // highlight the first move square in cyan
-                drawSquare(x, y, boardOffset, 100, sf::Color::Cyan, &window);
+                drawSquare(x, y, sf::Color::Cyan);
             }
 
             // check for user input, if so send it to the controller to be treated
@@ -128,7 +128,7 @@ void View::showWindow() {
             //     }
             // }
 
-        window.display();
+        window->display();
         }
     }
 }
