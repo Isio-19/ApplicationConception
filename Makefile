@@ -1,9 +1,19 @@
-all: 
-	g++ -c main.cpp -o main.o  
-	g++ main.o MVC/*.cpp -o main -lsfml-graphics -lsfml-window -lsfml-system 
+all: main model view controller
+	g++ main.o Model.o View.o Controller.o -o main -lsfml-graphics -lsfml-window -lsfml-system 
 	./main
-	make clean 
+
+main:
+	g++ -c main.cpp -o main.o
+
+model:
+	g++ -c MVC/Model.cpp -o Model.o
+
+view:
+	g++ -c MVC/View.cpp -o View.o
+
+controller:
+	g++ -c MVC/Controller.cpp -o Controller.o
 
 clean:
-	rm main.o
+	rm *.o
 	rm main
