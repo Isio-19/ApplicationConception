@@ -1,3 +1,5 @@
-.vscode
-main
-main.o
+.vscode/
+src/obj/*
+src/Quixo
+various/Conception.mdj
+*.pdf

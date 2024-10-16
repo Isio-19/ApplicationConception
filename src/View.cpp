@@ -1,4 +1,4 @@
-#include "View.h"
+#include "../include/View.h"
 #include <iostream>
 
 /**
@@ -53,13 +53,13 @@ void View::drawBoard(int** board) {
     sf::Texture circleTexture;
 
     try {
-        emptyTexture.loadFromFile("sprites/empty.png");
+        emptyTexture.loadFromFile("../sprites/empty.png");
         emptyTexture.setSmooth(true);
         
-        crossTexture.loadFromFile("sprites/cross.png");
+        crossTexture.loadFromFile("../sprites/cross.png");
         crossTexture.setSmooth(true);
         
-        circleTexture.loadFromFile("sprites/circle.png");
+        circleTexture.loadFromFile("../sprites/circle.png");
         circleTexture.setSmooth(true);
     } catch(const std::exception& e) {
         std::cerr << e.what() << '\n';
@@ -126,7 +126,7 @@ void View::showWindow() {
             if (controller->getWinningPlayer() != 0) {
                 // if a winning player is defined, show it
                 sf::Font font;
-                font.loadFromFile("various/arial.ttf");
+                font.loadFromFile("../various/arial.ttf");
                 sf::Text text;
                 text.setFont(font);
                 text.setCharacterSize(50);

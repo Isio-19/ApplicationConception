@@ -1,6 +1,6 @@
-#include "MVC/Model.h"
-#include "MVC/View.h"
-#include "MVC/Controller.h"
+#include "../include/Model.h"
+#include "../include/View.h"
+#include "../include/Controller.h"
 #include <iostream>
 
 int main(int argc, char const *argv[]) {
