@@ -1,8 +1,13 @@
-# Quixo | Application de conception
+# Quixo
 
-Fait par Jérôme CHEN.
+Made by Jérôme CHEN (@Isio 19)
 
-## Lancement de l'application 
+## Features
 
-> make
+An implementation of the board game "Quixo" using C++.
+GUI made using SFML and uses the MVC design pattern.
 
+## Usage
+
+No specific argument needs to be given to launch the application.
+Compile and launch the application with `./Quixo`
